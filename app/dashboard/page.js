@@ -936,7 +936,7 @@ export default function DashboardPage() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setLoading(false);
+    setMounted(true);
     // Only attempt to fetch if we're in the browser (client-side)
     // if (typeof window !== 'undefined') {
     //   fetchDashboardData();
