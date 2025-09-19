@@ -1686,7 +1686,11 @@ export default function DashboardPage() {
                         <div key={index} className="flex items-center justify-between p-3 bg-blue-50/50 dark:bg-slate-700/50 rounded-lg">
                           <div>
                             <div className="flex items-center mb-1">
-                              {[...Array(Math.min(mood.mood || 0, 10))].map((_, i) => (
+                              {/* {[...Array(Math.min(mood.mood || 0, 10))].map((_, i) => (
+                                <Star key={i} className="h-4 w-4 text-amber-400 fill-current" />
+                              ))} */}
+
+                              {Array.from({ length: Math.min(mood?.mood ?? 0, 10) }).map((_, i) => (
                                 <Star key={i} className="h-4 w-4 text-amber-400 fill-current" />
                               ))}
                               <span className="ml-2 text-sm font-medium">{mood.mood || 0}/10</span>
