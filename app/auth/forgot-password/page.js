@@ -67,8 +67,8 @@ export default function ForgotPasswordPage() {
               {emailSent ? 'Check Your Email' : 'Reset Password'}
             </CardTitle>
             <CardDescription>
-              {emailSent 
-                ? `We've sent password reset instructions to ${email}` 
+              {emailSent
+                ? `We've sent password reset instructions to ${email}`
                 : 'Enter your email address and we\'ll send you instructions to reset your password'
               }
             </CardDescription>
@@ -83,7 +83,7 @@ export default function ForgotPasswordPage() {
                     Email Sent Successfully!
                   </h3>
                   <p className="text-sm text-green-700 dark:text-green-300">
-                    Please check your email and follow the instructions to reset your password. 
+                    Please check your email and follow the instructions to reset your password.
                     The reset link will expire in 1 hour for security.
                   </p>
                 </div>
@@ -96,9 +96,9 @@ export default function ForgotPasswordPage() {
                     </Link>
                   </Button>
 
-                  <Button 
-                    variant="outline" 
-                    className="w-full" 
+                  <Button
+                    variant="outline"
+                    className="w-full"
                     onClick={() => {
                       setEmailSent(false);
                       setEmail('');
