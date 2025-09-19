@@ -936,33 +936,33 @@ export default function DashboardPage() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    setLoading(false);
     // Only attempt to fetch if we're in the browser (client-side)
-    if (typeof window !== 'undefined') {
-      fetchDashboardData();
-    }
+    // if (typeof window !== 'undefined') {
+    //   fetchDashboardData();
+    // }
   }, []);
 
-  const fetchDashboardData = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch('/api/user/dashboard', {
-        credentials: 'include',
-      });
+  // const fetchDashboardData = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await fetch('/api/user/dashboard', {
+  //       credentials: 'include',
+  //     });
 
-      if (response.ok) {
-        const data = await response.json();
-        setStats(data.stats || stats);
-        setRecentMoods(data.recentMoods || recentMoods);
-      } else {
-        console.log('API not available, using mock data');
-      }
-    } catch (error) {
-      console.log('API endpoint not available yet, using mock data');
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setStats(data.stats || stats);
+  //       setRecentMoods(data.recentMoods || recentMoods);
+  //     } else {
+  //       console.log('API not available, using mock data');
+  //     }
+  //   } catch (error) {
+  //     console.log('API endpoint not available yet, using mock data');
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const quickActions = [
     {
