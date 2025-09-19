@@ -6,5 +6,8 @@
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off"
   },
-  "ignorePatterns": ["**/dashboard/page.js", "**/dashboard/**/*.js"]
+  "ignorePatterns": ["**/dashboard/page.js", "**/dashboard/**/*.js",
+     "app/dashboard/**/*",
+    "app/dashboard/page.js"
+]
 }
