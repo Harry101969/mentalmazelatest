@@ -70,7 +70,7 @@ export default function Level1Page() {
         { id: `${pair.id}-reframed`, pairId: pair.id, type: 'reframed', text: pair.reframed, isFlipped: false, isMatched: false }
       );
     });
-    
+
     // Shuffle cards
     const shuffledCards = gameCards.sort(() => Math.random() - 0.5);
     setCards(shuffledCards);
@@ -87,15 +87,15 @@ export default function Level1Page() {
 
   const flipCard = (cardId) => {
     if (flippedCards.length >= 2) return;
-    
+
     const card = cards.find(c => c.id === cardId);
     if (card.isFlipped || card.isMatched) return;
 
     const newFlippedCards = [...flippedCards, cardId];
     setFlippedCards(newFlippedCards);
-    
+
     // Update card state
-    setCards(prev => prev.map(c => 
+    setCards(prev => prev.map(c =>
       c.id === cardId ? { ...c, isFlipped: true } : c
     ));
 
@@ -113,12 +113,12 @@ export default function Level1Page() {
     setTimeout(() => {
       if (card1.pairId === card2.pairId) {
         // Match found!
-        setCards(prev => prev.map(c => 
+        setCards(prev => prev.map(c =>
           flippedCardIds.includes(c.id) ? { ...c, isMatched: true } : c
         ));
         setMatchedPairs(prev => [...prev, card1.pairId]);
         setFlippedCards([]);
-        
+
         // Check if game is complete
         if (matchedPairs.length + 1 === cardPairs.length) {
           setTimeout(() => {
@@ -127,7 +127,7 @@ export default function Level1Page() {
         }
       } else {
         // No match, flip cards back
-        setCards(prev => prev.map(c => 
+        setCards(prev => prev.map(c =>
           flippedCardIds.includes(c.id) ? { ...c, isFlipped: false } : c
         ));
         setFlippedCards([]);
@@ -182,7 +182,7 @@ export default function Level1Page() {
   return (
     <div className="min-h-screen bg-background">
       <UserNavbar />
-      
+
       <main className="pt-20 pb-12">
         <div className="container mx-auto px-4 max-w-6xl">
           {/* Header */}
@@ -198,7 +198,7 @@ export default function Level1Page() {
                 <p className="text-muted-foreground">Navigate through anxiety with memory and reframing</p>
               </div>
             </div>
-            
+
             {gameState === 'playing' && (
               <div className="flex items-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
@@ -233,8 +233,8 @@ export default function Level1Page() {
                   <CardContent className="space-y-6">
                     <div className="prose prose-sm max-w-none">
                       <p className="text-lg leading-relaxed">
-                        Anxiety often clouds our thinking with negative thoughts. In this level, you'll practice 
-                        <strong> cognitive reframing</strong> - a powerful technique to transform anxious thoughts 
+                        Anxiety often clouds our thinking with negative thoughts. In this level, you'll practice
+                        <strong> cognitive reframing</strong> - a powerful technique to transform anxious thoughts
                         into more balanced, realistic perspectives.
                       </p>
                     </div>
@@ -261,7 +261,7 @@ export default function Level1Page() {
                           </li>
                         </ul>
                       </div>
-                      
+
                       <div>
                         <h3 className="font-semibold mb-3">Learning Goals:</h3>
                         <ul className="space-y-2 text-sm">
@@ -287,7 +287,7 @@ export default function Level1Page() {
 
                     <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg">
                       <p className="text-sm text-blue-800 dark:text-blue-200">
-                        <strong>Remember:</strong> This is a safe space to explore your thoughts. 
+                        <strong>Remember:</strong> This is a safe space to explore your thoughts.
                         Take your time and be gentle with yourself as you practice these new skills.
                       </p>
                     </div>
@@ -312,11 +312,11 @@ export default function Level1Page() {
                 className="relative"
               >
                 {/* Fog Overlay */}
-                <div 
+                <div
                   className="fixed inset-0 bg-gradient-to-b from-gray-400/20 to-gray-600/30 pointer-events-none transition-opacity duration-1000 z-10"
                   style={{ opacity: fogOpacity }}
                 />
-                
+
                 {/* Progress Bar */}
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-2">
@@ -325,7 +325,12 @@ export default function Level1Page() {
                       {matchedPairs.length}/{cardPairs.length} pairs matched
                     </span>
                   </div>
-                  <Progress value={(matchedPairs.length / cardPairs.length) * 100} className="h-2" />
+                  {/* <Progress value={(matchedPairs.length / cardPairs.length) * 100} className="h-2" /> */}
+
+                  <Progress
+                    value={cardPairs.length > 0 ? (matchedPairs.length / cardPairs.length) * 100 : 0}
+                    className="h-2"
+                  />
                 </div>
 
                 {/* Game Grid */}
@@ -333,24 +338,22 @@ export default function Level1Page() {
                   {cards.map((card) => (
                     <motion.div
                       key={card.id}
-                      className={`aspect-square cursor-pointer ${
-                        card.isMatched ? 'pointer-events-none' : ''
-                      }`}
+                      className={`aspect-square cursor-pointer ${card.isMatched ? 'pointer-events-none' : ''
+                        }`}
                       whileHover={{ scale: card.isFlipped || card.isMatched ? 1 : 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => flipCard(card.id)}
                     >
                       <div className="relative w-full h-full">
                         <motion.div
-                          className={`absolute inset-0 rounded-lg border-2 transition-all duration-300 ${
-                            card.isMatched 
-                              ? 'border-green-500 bg-green-50 dark:bg-green-950' 
-                              : card.isFlipped 
-                                ? card.type === 'anxious' 
-                                  ? 'border-red-300 bg-red-50 dark:bg-red-950' 
-                                  : 'border-blue-300 bg-blue-50 dark:bg-blue-950'
-                                : 'border-muted bg-muted hover:border-primary'
-                          }`}
+                          className={`absolute inset-0 rounded-lg border-2 transition-all duration-300 ${card.isMatched
+                            ? 'border-green-500 bg-green-50 dark:bg-green-950'
+                            : card.isFlipped
+                              ? card.type === 'anxious'
+                                ? 'border-red-300 bg-red-50 dark:bg-red-950'
+                                : 'border-blue-300 bg-blue-50 dark:bg-blue-950'
+                              : 'border-muted bg-muted hover:border-primary'
+                            }`}
                           animate={{
                             rotateY: card.isFlipped || card.isMatched ? 0 : 180
                           }}
@@ -358,11 +361,10 @@ export default function Level1Page() {
                         >
                           <div className="p-3 h-full flex items-center justify-center text-center">
                             {card.isFlipped || card.isMatched ? (
-                              <p className={`text-xs leading-tight ${
-                                card.type === 'anxious' 
-                                  ? 'text-red-700 dark:text-red-300' 
-                                  : 'text-blue-700 dark:text-blue-300'
-                              }`}>
+                              <p className={`text-xs leading-tight ${card.type === 'anxious'
+                                ? 'text-red-700 dark:text-red-300'
+                                : 'text-blue-700 dark:text-blue-300'
+                                }`}>
                                 {card.text}
                               </p>
                             ) : (
@@ -379,11 +381,11 @@ export default function Level1Page() {
 
                 {/* Reset Button */}
                 <div className="flex justify-center mt-8">
-                  <Button 
+                  <Button
                     onClick={() => {
                       initializeGame();
                       setStartTime(Date.now());
-                    }} 
+                    }}
                     variant="outline"
                     className="flex items-center gap-2"
                   >
@@ -439,7 +441,7 @@ export default function Level1Page() {
                         Reflect on your experience:
                       </Label>
                       <p className="text-sm text-muted-foreground">
-                        Take a moment to write about any anxious thoughts you've been having lately. 
+                        Take a moment to write about any anxious thoughts you've been having lately.
                         Practice reframing them using the techniques you just learned.
                       </p>
                       <Textarea
@@ -480,13 +482,13 @@ export default function Level1Page() {
                     >
                       <CheckCircle className="w-10 h-10 text-white" />
                     </motion.div>
-                    
+
                     <h2 className="text-3xl font-bold mb-4">Level 1 Complete!</h2>
                     <p className="text-lg text-muted-foreground mb-8">
-                      You've taken the first step in your mental wellness journey. 
+                      You've taken the first step in your mental wellness journey.
                       The fog has cleared, and you're ready for the next challenge!
                     </p>
-                    
+
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       <Button asChild size="lg">
                         <Link href="/games/level-2">
