@@ -12,6 +12,7 @@
 // next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output:'export',
   eslint: {
     // ✅ Ignore all ESLint errors during builds
     ignoreDuringBuilds: true,
