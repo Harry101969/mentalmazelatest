@@ -1,5 +1,6 @@
 'use client';
 
+export const dynamic = "force-dynamic";
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Brain, TowerControl as GameController2, MessageCircle, Heart, Users, Music, BookOpen, Trophy, Clock, Target, TrendingUp, Star, Zap, Calendar, Phone } from 'lucide-react';
@@ -18,14 +19,29 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
 
+  // useEffect(() => {
+  //   //fetchDashboardData();
+  //   setLoading(false);
+  // }, []);
   useEffect(() => {
-    //fetchDashboardData();
+    setStats({
+      levelsCompleted: 0,
+      totalTimeSpent: 0,
+      currentStreak: 0,
+      currentLevel: 1,
+    });
+    setRecentMoods([]);
     setLoading(false);
   }, []);
 
+
   // const fetchDashboardData = async () => {
   //   try {
-  //     const response = await fetch('/api/user/dashboard', {
+  //     const baseUrl = typeof window !== 'undefined'
+  //       ? ''
+  //       : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+
+  //     const response = await fetch(`${baseUrl}/api/user/dashboard`, {
   //       credentials: 'include',
   //     });
 
@@ -40,27 +56,6 @@ export default function DashboardPage() {
   //     setLoading(false);
   //   }
   // };
-  const fetchDashboardData = async () => {
-    try {
-      const baseUrl = typeof window !== 'undefined'
-        ? ''
-        : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-
-      const response = await fetch(`${baseUrl}/api/user/dashboard`, {
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setStats(data.stats);
-        setRecentMoods(data.recentMoods || []);
-      }
-    } catch (error) {
-      console.error('Error fetching dashboard data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
   const quickActions = [
     {
       title: 'Continue Game',
