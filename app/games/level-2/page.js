@@ -25,7 +25,7 @@ export default function Level2Page() {
   const [journalEntry, setJournalEntry] = useState('');
   const [phaseProgress, setPhaseProgress] = useState(0);
   const [selectedPattern, setSelectedPattern] = useState(null);
-  
+
   const timerRef = useRef(null);
   const phaseTimerRef = useRef(null);
   const consistencyRef = useRef(100);
@@ -51,7 +51,7 @@ export default function Level2Page() {
     setCycleCount(0);
     setConsistency(100);
     consistencyRef.current = 100;
-    
+
     // Start main timer
     timerRef.current = setInterval(() => {
       setTimeRemaining(prev => {
@@ -69,15 +69,15 @@ export default function Level2Page() {
 
   const startBreathingCycle = () => {
     if (!selectedPattern) return;
-    
+
     const phases = ['inhale', 'hold', 'exhale', 'pause'];
     let currentPhaseIndex = 0;
-    
+
     const nextPhase = () => {
       const phase = phases[currentPhaseIndex];
       setBreathingPhase(phase);
       setPhaseProgress(0);
-      
+
       // Animate orb based on phase
       if (phase === 'inhale') {
         setOrbScale(1.5);
@@ -91,26 +91,26 @@ export default function Level2Page() {
       const duration = selectedPattern.pattern[phase];
       const interval = 50;
       let elapsed = 0;
-      
+
       const progressTimer = setInterval(() => {
         elapsed += interval;
         const progress = (elapsed / duration) * 100;
         setPhaseProgress(Math.min(progress, 100));
-        
+
         if (elapsed >= duration) {
           clearInterval(progressTimer);
           currentPhaseIndex = (currentPhaseIndex + 1) % phases.length;
-          
+
           if (currentPhaseIndex === 0) {
             setCycleCount(prev => prev + 1);
           }
-          
+
           if (isActive) {
             nextPhase();
           }
         }
       }, interval);
-      
+
       phaseTimerRef.current = progressTimer;
     };
 
@@ -125,7 +125,7 @@ export default function Level2Page() {
 
   const resumeBreathing = () => {
     setIsActive(true);
-    
+
     // Resume main timer
     timerRef.current = setInterval(() => {
       setTimeRemaining(prev => {
@@ -150,7 +150,7 @@ export default function Level2Page() {
     setPhaseProgress(0);
     setConsistency(100);
     consistencyRef.current = 100;
-    
+
     if (timerRef.current) clearInterval(timerRef.current);
     if (phaseTimerRef.current) clearInterval(phaseTimerRef.current);
   };
@@ -159,12 +159,12 @@ export default function Level2Page() {
     setIsActive(false);
     if (timerRef.current) clearInterval(timerRef.current);
     if (phaseTimerRef.current) clearInterval(phaseTimerRef.current);
-    
+
     // Calculate final score
     const timeBonus = timeRemaining > 0 ? 0 : 20; // Bonus for completing full minute
     const cycleBonus = Math.min(cycleCount * 5, 30); // Up to 30 points for cycles
     const consistencyScore = Math.round(consistencyRef.current);
-    
+
     toast.success('Breathing session completed! Well done on your mindful practice.');
     setGameState('completed');
   };
@@ -223,7 +223,7 @@ export default function Level2Page() {
   return (
     <div className="min-h-screen bg-background">
       <UserNavbar />
-      
+
       <main className="pt-20 pb-12">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Header */}
@@ -239,7 +239,7 @@ export default function Level2Page() {
                 <p className="text-muted-foreground">Master breathing techniques for stress relief</p>
               </div>
             </div>
-            
+
             {gameState === 'playing' && (
               <div className="flex items-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
@@ -273,7 +273,7 @@ export default function Level2Page() {
                   <CardContent className="space-y-6">
                     <div className="prose prose-sm max-w-none">
                       <p className="text-lg leading-relaxed">
-                        In this level, you'll learn the <strong>4-4-4-4 breathing technique</strong> - 
+                        In this level, you'll learn the <strong>4-4-4-4 breathing technique</strong> -
                         a powerful method to activate your body's relaxation response and reduce stress and anxiety.
                       </p>
                     </div>
@@ -300,7 +300,7 @@ export default function Level2Page() {
                           </div>
                         </div>
                       </div>
-                      
+
                       <div>
                         <h3 className="font-semibold mb-3">Benefits:</h3>
                         <ul className="space-y-2 text-sm">
@@ -330,7 +330,7 @@ export default function Level2Page() {
 
                     <div className="bg-amber-50 dark:bg-amber-950 p-4 rounded-lg">
                       <p className="text-sm text-amber-800 dark:text-amber-200">
-                        <strong>Tip:</strong> Find a comfortable position, close your eyes if you'd like, 
+                        <strong>Tip:</strong> Find a comfortable position, close your eyes if you'd like,
                         and focus on the breathing orb. Let it guide your rhythm naturally.
                       </p>
                     </div>
@@ -369,16 +369,16 @@ export default function Level2Page() {
                 <div className="relative mb-8">
                   <motion.div
                     className={`w-64 h-64 mx-auto rounded-full bg-gradient-to-br ${getPhaseColor()} shadow-2xl`}
-                    animate={{ 
+                    animate={{
                       scale: orbScale,
                       boxShadow: `0 0 ${orbScale * 50}px rgba(59, 130, 246, 0.3)`
                     }}
-                    transition={{ 
+                    transition={{
                       duration: breathingPattern[breathingPhase] / 1000,
                       ease: "easeInOut"
                     }}
                   />
-                  
+
                   {/* Phase Progress Ring */}
                   <div className="absolute inset-0 w-64 h-64 mx-auto">
                     <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
