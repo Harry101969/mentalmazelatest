@@ -126,7 +126,7 @@ export default function CallFriendPage() {
   const callContact = (contact) => {
     // Create a tel: link to initiate phone call
     window.location.href = `tel:${contact.phone}`;
-    
+
     // Log the call attempt
     logCallAttempt(contact);
   };
@@ -155,7 +155,7 @@ export default function CallFriendPage() {
       toast.error('No contacts available for random calling');
       return;
     }
-    
+
     const randomContact = availableContacts[Math.floor(Math.random() * availableContacts.length)];
     callContact(randomContact);
     toast.success(`Calling ${randomContact.name}...`);
@@ -178,7 +178,7 @@ export default function CallFriendPage() {
   return (
     <div className="min-h-screen bg-background">
       <UserNavbar />
-      
+
       <main className="pt-20 pb-12">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Header */}
@@ -192,7 +192,7 @@ export default function CallFriendPage() {
             <p className="text-muted-foreground mb-6">
               Reach out to your support network when you need someone to talk to
             </p>
-            
+
             {/* Quick Actions */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
@@ -204,7 +204,7 @@ export default function CallFriendPage() {
                 <Phone className="w-4 h-4 mr-2" />
                 Call Random Friend
               </Button>
-              
+
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogTrigger asChild>
                   <Button variant="outline" size="lg">
@@ -221,7 +221,7 @@ export default function CallFriendPage() {
                       Add someone to your support network who you can reach out to when needed
                     </DialogDescription>
                   </DialogHeader>
-                  
+
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Name</Label>
@@ -232,7 +232,7 @@ export default function CallFriendPage() {
                         onChange={(e) => setNewContact(prev => ({ ...prev, name: e.target.value }))}
                       />
                     </div>
-                    
+
                     <div className="space-y-2">
                       <Label htmlFor="phone">Phone Number</Label>
                       <Input
@@ -243,7 +243,7 @@ export default function CallFriendPage() {
                         onChange={(e) => setNewContact(prev => ({ ...prev, phone: e.target.value }))}
                       />
                     </div>
-                    
+
                     <div className="space-y-2">
                       <Label htmlFor="relationship">Relationship</Label>
                       <Select
@@ -262,7 +262,7 @@ export default function CallFriendPage() {
                         </SelectContent>
                       </Select>
                     </div>
-                    
+
                     <div className="flex items-center space-x-2">
                       <Switch
                         id="emergency"
@@ -271,7 +271,7 @@ export default function CallFriendPage() {
                       />
                       <Label htmlFor="emergency">Emergency contact</Label>
                     </div>
-                    
+
                     <div className="flex justify-end space-x-2">
                       <Button
                         variant="outline"
@@ -327,7 +327,7 @@ export default function CallFriendPage() {
                             <p className="text-sm text-red-700 dark:text-red-300">{contact.relationship}</p>
                           </div>
                         </div>
-                        
+
                         <div className="flex items-center gap-2">
                           <Button
                             onClick={() => callContact(contact)}
@@ -393,7 +393,7 @@ export default function CallFriendPage() {
                             </div>
                           </div>
                         </div>
-                        
+
                         <div className="flex items-center gap-2">
                           <Button
                             onClick={() => callContact(contact)}
