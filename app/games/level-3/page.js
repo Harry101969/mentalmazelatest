@@ -1188,7 +1188,7 @@ export default function Level3Page() {
     if (!isLoading && cognitiveDistortions.length > 0) {
       initializeGame();
     }
-    
+
     return () => {
       if (timerRef.current) {
         clearInterval(timerRef.current);
@@ -1210,7 +1210,7 @@ export default function Level3Page() {
 
   const initializeGame = () => {
     if (cognitiveDistortions.length === 0) return;
-    
+
     const firstDistortion = cognitiveDistortions[0];
     if (firstDistortion && firstDistortion.pieces) {
       const shuffledPieces = [...firstDistortion.pieces].sort(() => Math.random() - 0.5);
@@ -1253,7 +1253,7 @@ export default function Level3Page() {
 
   const checkCompletion = () => {
     if (cognitiveDistortions.length === 0 || currentDistortion >= cognitiveDistortions.length) return;
-    
+
     const currentDistortionData = cognitiveDistortions[currentDistortion];
     const allPiecesPlaced = mirrorPieces.every(piece => piece.currentPosition);
 
@@ -1297,7 +1297,7 @@ export default function Level3Page() {
 
   const shufflePieces = () => {
     if (cognitiveDistortions.length === 0 || currentDistortion >= cognitiveDistortions.length) return;
-    
+
     const currentDistortionData = cognitiveDistortions[currentDistortion];
     if (currentDistortionData && currentDistortionData.pieces) {
       const shuffledPieces = [...currentDistortionData.pieces].sort(() => Math.random() - 0.5);
@@ -1318,7 +1318,7 @@ export default function Level3Page() {
 
       // Mock API call - replace with actual API when ready
       console.log('Game data to save:', gameData);
-      
+
       // Simulate API success
       setTimeout(() => {
         setGameState('completed');
@@ -1748,4 +1748,5 @@ export default function Level3Page() {
       </main>
     </div>
   );
+  //
 }
