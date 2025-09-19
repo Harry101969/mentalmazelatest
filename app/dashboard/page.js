@@ -19,7 +19,8 @@ export default function DashboardPage() {
   const { user } = useAuth();
 
   useEffect(() => {
-    fetchDashboardData();
+    //fetchDashboardData();
+    setLoading(false);
   }, []);
 
   // const fetchDashboardData = async () => {
@@ -39,27 +40,27 @@ export default function DashboardPage() {
   //     setLoading(false);
   //   }
   // };
-const fetchDashboardData = async () => {
-  try {
-    const baseUrl = typeof window !== 'undefined' 
-      ? '' 
-      : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const fetchDashboardData = async () => {
+    try {
+      const baseUrl = typeof window !== 'undefined'
+        ? ''
+        : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
-    const response = await fetch(`${baseUrl}/api/user/dashboard`, {
-      credentials: 'include',
-    });
+      const response = await fetch(`${baseUrl}/api/user/dashboard`, {
+        credentials: 'include',
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      setStats(data.stats);
-      setRecentMoods(data.recentMoods || []);
+      if (response.ok) {
+        const data = await response.json();
+        setStats(data.stats);
+        setRecentMoods(data.recentMoods || []);
+      }
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    console.error('Error fetching dashboard data:', error);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
   const quickActions = [
     {
       title: 'Continue Game',
@@ -142,7 +143,7 @@ const fetchDashboardData = async () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50/30 via-white to-purple-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-purple-900/30">
       <UserNavbar />
-      
+
       <main className="pt-20 pb-12">
         <div className="container mx-auto px-4">
           {/* Welcome Section */}
@@ -260,7 +261,7 @@ const fetchDashboardData = async () => {
                     </span>
                   </div>
                   <Progress value={((stats?.levelsCompleted || 0) / 5) * 100} className="h-3" />
-                  
+
                   {user?.subscription === 'free' && (stats?.levelsCompleted || 0) >= 3 && (
                     <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-700">
                       <div className="flex items-center justify-between">
