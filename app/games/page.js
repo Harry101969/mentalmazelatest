@@ -66,7 +66,7 @@ export default function GamesPage() {
       estimatedTime: "20-25 minutes",
       icon: Flower,
       gradient: "from-amber-500 to-orange-500",
-      isPremium: true,
+      isPremium: false,
       mechanics: "Observation and attention-based challenges",
       benefits: ["Mindful awareness", "Present moment focus", "Attention training"]
     },
@@ -79,7 +79,7 @@ export default function GamesPage() {
       estimatedTime: "25-30 minutes",
       icon: Home,
       gradient: "from-indigo-500 to-blue-500",
-      isPremium: true,
+      isPremium: false,
       mechanics: "Drag-and-drop self-care planning interface",
       benefits: ["Self-care planning", "Personal growth", "Wellness habits"]
     }
@@ -119,7 +119,7 @@ export default function GamesPage() {
   };
 
   const getLevelStatus = (level) => {
-    if (!gameProgress) return level.id === 1 ? 'available' : 'locked';
+    if (!gameProgress) return level.id === 1 ? 'available' : null;
     
     if (gameProgress.levelsCompleted.includes(level.id)) {
       return 'completed';

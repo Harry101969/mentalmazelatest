@@ -22,24 +22,44 @@ export default function DashboardPage() {
     fetchDashboardData();
   }, []);
 
-  const fetchDashboardData = async () => {
-    try {
-      const response = await fetch('/api/user/dashboard', {
-        credentials: 'include',
-      });
+  // const fetchDashboardData = async () => {
+  //   try {
+  //     const response = await fetch('/api/user/dashboard', {
+  //       credentials: 'include',
+  //     });
 
-      if (response.ok) {
-        const data = await response.json();
-        setStats(data.stats);
-        setRecentMoods(data.recentMoods || []);
-      }
-    } catch (error) {
-      console.error('Error fetching dashboard data:', error);
-    } finally {
-      setLoading(false);
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setStats(data.stats);
+  //       setRecentMoods(data.recentMoods || []);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching dashboard data:', error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+const fetchDashboardData = async () => {
+  try {
+    const baseUrl = typeof window !== 'undefined' 
+      ? '' 
+      : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+
+    const response = await fetch(`${baseUrl}/api/user/dashboard`, {
+      credentials: 'include',
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setStats(data.stats);
+      setRecentMoods(data.recentMoods || []);
     }
-  };
-
+  } catch (error) {
+    console.error('Error fetching dashboard data:', error);
+  } finally {
+    setLoading(false);
+  }
+};
   const quickActions = [
     {
       title: 'Continue Game',
