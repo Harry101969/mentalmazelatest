@@ -1682,7 +1682,7 @@ export default function DashboardPage() {
                 <CardContent>
                   {recentMoods && recentMoods.length > 0 ? (
                     <div className="space-y-4">
-                      {recentMoods.slice(0, 3).map((mood, index) => (
+                      {recentMoods?.map((mood, index) => (
                         <div key={index} className="flex items-center justify-between p-3 bg-blue-50/50 dark:bg-slate-700/50 rounded-lg">
                           <div>
                             <div className="flex items-center mb-1">

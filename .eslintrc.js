@@ -12,7 +12,7 @@ module.exports = {
     },
     overrides: [
         {
-            files: ['app/dashboard/page.js', 'app/dashboard/**/*.js', 'app/games/**/*.js'],
+            files: ['app/dashboard/page.js', 'app/dashboard/**/*.js', 'app/games/**/*.js', 'app/games/level-3/page.js', 'app/games/level-2/page.js'],
             rules: {
                 // disable *all* rules for dashboard files
                 'no-unused-vars': 'off',

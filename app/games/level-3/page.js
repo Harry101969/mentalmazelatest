@@ -1625,8 +1625,7 @@ export default function Level3Page() {
                   <div className="p-4 bg-muted/50 rounded-lg">
                     <h4 className="font-medium mb-3 text-center">Mirror Pieces</h4>
                     <div className="flex flex-wrap gap-2 justify-center">
-                      {mirrorPieces
-                        .filter(piece => !piece.currentPosition)
+                      {mirrorPieces?.filter(piece => !piece.currentPosition)
                         .map((piece) => (
                           <div
                             key={piece.id}
