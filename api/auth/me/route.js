@@ -7,7 +7,7 @@ export async function GET() {
   try {
     await dbConnect();
     const currentUser = await getCurrentUser();
-    
+
     if (!currentUser) {
       return Response.json(
         { message: 'Not authenticated' },
